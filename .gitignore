@@ -1,0 +1,84 @@
+# === ARCHITECTURE DU PROJET ===
+# Ce fichier à la racine gère /backend et /frontend
+
+# --- SYSTEM & IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- PYTHON & DJANGO (Backend) ---
+# On ignore les dossiers de cache récursivement
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+**/*.so
+.Python
+
+# Environnements virtuels
+venv/
+env/
+.venv/
+backend/venv/
+backend/env/
+
+# Django spécifique
+backend/db.sqlite3
+backend/db.sqlite3-journal
+backend/local_settings.py
+backend/media/
+backend/staticfiles/
+backend/static/
+backend/.env
+*.log
+
+# Distribution Backend
+backend/dist/
+backend/build/
+backend/*.egg-info/
+
+# --- NEXT.JS & NODE (Frontend) ---
+# Dépendances (recherche récursive pour plus de sécurité)
+**/node_modules/
+frontend/.pnp
+frontend/.pnp.*
+
+# Next.js build & logs
+frontend/.next/
+frontend/out/
+frontend/.vercel
+frontend/next-env.d.ts
+frontend/*.tsbuildinfo
+frontend/.cache/
+
+# Gestionnaire de packages (Yarn/NPM)
+frontend/.yarn/*
+!frontend/.yarn/patches
+!frontend/.yarn/plugins
+!frontend/.yarn/releases
+!frontend/.yarn/versions
+
+# Logs de debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# --- SECRETS & ENVIRONNEMENT ---
+# On bloque tout fichier .env pour éviter les fuites sur GitHub
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+*.pem
+
+# --- TESTING ---
+coverage/
+.coverage
+htmlcov/
+.pytest_cache/
