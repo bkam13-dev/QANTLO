@@ -4,13 +4,13 @@ from apps.inventory.models import Product, StockMovement, Category
 from apps.inventory.serializers import ProductSerializer, StockMovementSerializer, CategorySerializer
 from django.db.models import Count, Avg
 from rest_framework.response import Response
-
+from rest_framework import permissions
 
 # Les vues du model Product
- 
 class ListProductView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    
     
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
@@ -49,8 +49,7 @@ class CreateStockMovementView(generics.CreateAPIView):
 class ListStockMovementView(generics.ListAPIView):
     queryset = StockMovement.objects.all()
     serializer_class = StockMovementSerializer
-
-    
+   
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)

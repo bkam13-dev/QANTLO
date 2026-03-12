@@ -172,12 +172,16 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
-        }
+        },
+        "VERIFIED_EMAIL": True,
+
+        "FETCH_USERINFO": True,
     }
 }
 
+ACCOUNT_LOGOUT_ON_GET = True
 
-
+ACCOUNT_USERNAME_MIN_LENGTH = 3
 
 
 ROOT_URLCONF = 'config.urls'
@@ -275,3 +279,13 @@ CELERY_TIMEZONE = TIME_ZONE
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@inventory.com')
+
+
+# SECURITY
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"

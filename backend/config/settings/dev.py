@@ -56,8 +56,15 @@ LOGGING = {
 }
 
 
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES" : [
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-}
+# REST_FRAMEWORK = {
+#     "DEFAULT_AUTHENTICATION_CLASSES" : [
+#         'rest_framework.authentication.SessionAuthentication',
+#     ],
+# }
+
+
+# SECURITY
+
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
