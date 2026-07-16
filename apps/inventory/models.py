@@ -24,7 +24,7 @@ class StockItem(models.Model):
     quantity = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f"${self.product.name} : ${self.quantity}"
+        return f"{self.product.name} : {self.quantity}"
     
 
 
@@ -44,4 +44,4 @@ class StockMovement(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"${self.movement_type} - ${self.item.product.name} : ${self.quantity}"
+        return f"{self.movement_type} - {self.item.product.name} : {self.quantity}"

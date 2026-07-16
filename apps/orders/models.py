@@ -27,7 +27,7 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"${self.order_type} - ${self.reference} - ${self.status}"
+        return f"{self.order_type} - {self.reference} - {self.status}"
     
 
 # model article de commande
@@ -39,7 +39,7 @@ class OrderItem(models.Model):
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
     
     def __str__(self):
-        return f"${self.product.name} : ${self.quantity} - ${self.unit_price } Fcfa"
+        return f"{self.product.name} : {self.quantity} - {self.unit_price } Fcfa"
 
 
 # model facture
@@ -51,4 +51,4 @@ class Invoice(models.Model):
     issued_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"${self.total_amount} - ${self.is_paid} - ${self.order.status}"
+        return f"{self.total_amount} - {self.is_paid} - {self.order.status}"
