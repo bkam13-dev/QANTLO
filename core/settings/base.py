@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     
     'rest_framework',
     
-    'inventory.apps.InventoryConfig',
-    'orders.apps.OrdersConfig',
-    'products.apps.ProductsConfig',
-    'users.apps.UsersConfig',
+    'apps.inventory.apps.InventoryConfig',
+    'apps.orders.apps.OrdersConfig',
+    'apps.products.apps.ProductsConfig',
+    'apps.users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
