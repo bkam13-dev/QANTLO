@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from inventory.models import WareHouse
 import uuid
 
 # Create your models here.
@@ -19,8 +18,7 @@ class CustomUser(AbstractUser):
 
 # model Profil Utilisateur
 class UserProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='user_profile')
     phone = models.CharField(max_length=20, blank=True)
-    warehouse = models.ForeignKey(WareHouse, on_delete=models.CASCADE, related_name='users', null=True, blank=True)
     
     

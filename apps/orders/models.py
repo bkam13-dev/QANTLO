@@ -1,6 +1,6 @@
 from django.db import models
-from products.models import Supplier, Product
-from users.models import CustomUser
+from apps.products.models import Supplier, Product
+from apps.users.models import CustomUser
 import uuid
 
 # Create your models here.
@@ -46,7 +46,7 @@ class OrderItem(models.Model):
 class Invoice(models.Model):
     id= models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
     order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name="invoices")
-    total_amount = models.DecimalField(decimal_places=2)
+    total_amount = models.DecimalField(max_digits=12, decimal_places=2)
     is_paid = models.BooleanField(default=False)
     issued_at = models.DateTimeField(auto_now_add=True)
     
