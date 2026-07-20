@@ -20,7 +20,7 @@ class WareHouse(models.Model):
 class StockItem(models.Model):
     id = models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
     warehouse = models.ForeignKey(WareHouse, on_delete=models.CASCADE, related_name="stock_items")
-    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name="item")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="item")
     quantity = models.PositiveIntegerField(default=0)
 
     def __str__(self):
