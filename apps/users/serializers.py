@@ -14,6 +14,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 # Serializer du model Profil Utilisateur    
 class UserProfileSerializer(serializers.ModelSerializer):
+    user = CustomUserSerializer()
     class Meta:
         model = UserProfile
         fields = ['user', 'phone']
