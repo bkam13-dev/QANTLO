@@ -21,7 +21,7 @@ class StockItemViewset(viewsets.ModelViewSet):
     
     
 class StockMovementViewset(viewsets.ModelViewSet):
-    queryset = StockMovement.objects.select_related('item__product', 'item__warehouse').select_related('users').all()
+    queryset = StockMovement.objects.select_related('item__product', 'item__warehouse').select_related('user').all()
     serializer_class = StockMovementSerializer
     
     

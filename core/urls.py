@@ -15,12 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from apps.inventory.views import WareHouseViewset, StockItemViewset, StockMovementViewset
 from apps.products.views import ProductViewset, BrandViewset, SupplierViewset, CategoryViewset
 from apps.orders.views import OrderViewset, OrderItemViewset, InvoiceViewset
 from apps.users.views import CustomUserViewset, UserProfileViewset
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 router = DefaultRouter()
@@ -42,4 +44,8 @@ router.register(r"stock_movements", StockMovementViewset, basename="stock_moveme
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

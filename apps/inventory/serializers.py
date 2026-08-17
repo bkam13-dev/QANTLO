@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from apps.inventory.models import WareHouse, StockItem, StockMovement
+from apps.products.models import Product, Category
 from apps.users.serializers import CustomUserSerializer
 from apps.products.serializers import ProductSerializer
 
@@ -13,11 +14,10 @@ class WareHouseSerializer(serializers.ModelSerializer):
         
         
         
-        
 # Serializer du model Article en stock        
 class StockItemSerializer(serializers.ModelSerializer):
-    warehouse = WareHouseSerializer()
-    product = ProductSerializer()
+    warehouse = serializers.PrimaryKeyRelatedField(queryset=WareHouse.objects.all(), allow_null=False, required=True)
+    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all(), allow_null=False, required=True)
     class Meta:
         model = StockItem
         fields = ['id', 'warehouse', 'product', 'quantity']
@@ -28,8 +28,8 @@ class StockItemSerializer(serializers.ModelSerializer):
         
 # Serializer du model Mouvement de stock      
 class StockMovementSerializer(serializers.ModelSerializer):
-    item = StockItemSerializer()
-    user = CustomUserSerializer()
+    item = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all(), allow_null=False, required=True)
+    user = CustomUserSerializer(read_only=True)
     class Meta:
         model = StockMovement
         fields = ['id', 'item', 'movement_type', 'quantity', 'user', 'reason', 'created_at']

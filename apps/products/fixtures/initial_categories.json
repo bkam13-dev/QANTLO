@@ -1,0 +1,213 @@
+[
+  {
+    "model": "products.category",
+    "pk": 1,
+    "fields": {
+      "name": "Électronique & High-Tech",
+      "slug": "electronique-high-tech",
+      "description": "Appareils électroniques, composants et matériels informatiques.",
+      "icon_name": "cpu",
+      "is_active": true,
+      "display_order": 1,
+      "parent": null
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 2,
+    "fields": {
+      "name": "Smartphones & Tablettes",
+      "slug": "smartphones-tablettes",
+      "description": "Téléphones portables, tablettes tactiles et liseuses.",
+      "icon_name": "smartphone",
+      "is_active": true,
+      "display_order": 1,
+      "parent": 1
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 3,
+    "fields": {
+      "name": "Ordinateurs & Informatique",
+      "slug": "ordinateurs-informatique",
+      "description": "PC portables, ordinateurs de bureau et serveurs.",
+      "icon_name": "laptop",
+      "is_active": true,
+      "display_order": 2,
+      "parent": 1
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 4,
+    "fields": {
+      "name": "Accessoires & Périphériques",
+      "slug": "accessoires-peripheriques",
+      "description": "Claviers, souris, câbles, chargeurs et adaptateurs.",
+      "icon_name": "mouse",
+      "is_active": true,
+      "display_order": 3,
+      "parent": 1
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 5,
+    "fields": {
+      "name": "Audio & Casques",
+      "slug": "audio-casques",
+      "description": "Casques audio, écouteurs sans fil et enceintes.",
+      "icon_name": "headphones",
+      "is_active": true,
+      "display_order": 4,
+      "parent": 1
+    }
+  },
+
+  {
+    "model": "products.category",
+    "pk": 10,
+    "fields": {
+      "name": "Alimentation & Boissons",
+      "slug": "alimentation-boissons",
+      "description": "Denrées alimentaires, boissons et produits de consommation courante.",
+      "icon_name": "shopping-bag",
+      "is_active": true,
+      "display_order": 2,
+      "parent": null
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 11,
+    "fields": {
+      "name": "Produits Frais",
+      "slug": "produits-frais",
+      "description": "Produits nécessitant une conservation au frais.",
+      "icon_name": "snowflake",
+      "is_active": true,
+      "display_order": 1,
+      "parent": 10
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 12,
+    "fields": {
+      "name": "Épicerie Sèche",
+      "slug": "epicerie-seche",
+      "description": "Conserves, pâtes, riz et aliments non périssables à court terme.",
+      "icon_name": "package",
+      "is_active": true,
+      "display_order": 2,
+      "parent": 10
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 13,
+    "fields": {
+      "name": "Boissons Non-Alcolisées",
+      "slug": "boissons-non-alcolisees",
+      "description": "Eaux, jus de fruits, sodas et boissons chaudes.",
+      "icon_name": "cup-soda",
+      "is_active": true,
+      "display_order": 3,
+      "parent": 10
+    }
+  },
+
+  {
+    "model": "products.category",
+    "pk": 20,
+    "fields": {
+      "name": "Textile & Habillement",
+      "slug": "textile-habillement",
+      "description": "Vêtements, chaussures et équipements de protection individuelle.",
+      "icon_name": "shirt",
+      "is_active": true,
+      "display_order": 3,
+      "parent": null
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 21,
+    "fields": {
+      "name": "Vêtements Homme",
+      "slug": "vetements-homme",
+      "description": "Pantalons, chemises, vestes et t-shirts homme.",
+      "icon_name": "user",
+      "is_active": true,
+      "display_order": 1,
+      "parent": 20
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 22,
+    "fields": {
+      "name": "Vêtements Femme",
+      "slug": "vetements-femme",
+      "description": "Pantalons, blouses, robes et vestes femme.",
+      "icon_name": "user-check",
+      "is_active": true,
+      "display_order": 2,
+      "parent": 20
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 23,
+    "fields": {
+      "name": "EPI & Vêtements de Travail",
+      "slug": "epi-vetements-de-travail",
+      "description": "Chaussures de sécurité, gilets de signalisation et casques de chantier.",
+      "icon_name": "shield",
+      "is_active": true,
+      "display_order": 3,
+      "parent": 20
+    }
+  },
+
+  {
+    "model": "products.category",
+    "pk": 30,
+    "fields": {
+      "name": "Outillage & Équipement",
+      "slug": "outillage-equipement",
+      "description": "Matériel de bricolage, outillage mécanique et quincaillerie.",
+      "icon_name": "wrench",
+      "is_active": true,
+      "display_order": 4,
+      "parent": null
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 31,
+    "fields": {
+      "name": "Outillage À Main",
+      "slug": "outillage-a-main",
+      "description": "Marteaux, tournevis, clés et pinces.",
+      "icon_name": "tool",
+      "is_active": true,
+      "display_order": 1,
+      "parent": 30
+    }
+  },
+  {
+    "model": "products.category",
+    "pk": 32,
+    "fields": {
+      "name": "Outillage Électroportatif",
+      "slug": "outillage-electroportatif",
+      "description": "Perceuses, meuleuses, scies électriques et batteries.",
+      "icon_name": "zap",
+      "is_active": true,
+      "display_order": 2,
+      "parent": 30
+    }
+  }
+]
