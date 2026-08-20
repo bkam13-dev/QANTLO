@@ -22,8 +22,9 @@ class Order(models.Model):
     order_type = models.CharField(max_length=20, choices=OrderType.choices, default=OrderType.PURCHASE)
     status = models.CharField(max_length=20, choices=StatusChoice.choices, default=StatusChoice.PENDING)
     reference = models.CharField(max_length=255, unique=True)
-    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True, blank=True, related_name="orders")
-    created_by = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=True, blank=True, related_name="orders")
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, related_name="suppliers_orders", blank=True, null=True)
+    customer = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, related_name="customer_orders", null=True, blank=True)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="orders")
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -34,7 +35,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     id= models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="items")
-    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name="order_items")
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name="order_items")
     quantity = models.PositiveIntegerField()
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
     
@@ -45,7 +46,7 @@ class OrderItem(models.Model):
 # model facture
 class Invoice(models.Model):
     id= models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
-    order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name="invoices")
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name="invoice")
     total_amount = models.DecimalField(max_digits=12, decimal_places=2)
     is_paid = models.BooleanField(default=False)
     issued_at = models.DateTimeField(auto_now_add=True)

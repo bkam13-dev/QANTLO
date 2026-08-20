@@ -8,7 +8,7 @@ from django.utils.text import slugify
 class Category(models.Model):
     id= models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
     name = models.CharField(max_length=255)
-    slug = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=255, unique=True)
     parent = models.ForeignKey('self',on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     def __str__(self):
@@ -19,7 +19,7 @@ class Category(models.Model):
             self.slug = slugify(self.name)
         return super().save(*args, **kwargs)
 
-
+ 
 # model fournisseur
 class Supplier(models.Model):
     id= models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
@@ -32,6 +32,20 @@ class Supplier(models.Model):
     def __str__(self):
         return self.company_name
     
+class Customer(models.Model):
+    id= models.UUIDField(primary_key=True, unique=True, editable=False, default=uuid.uuid4)
+    company_name = models.CharField(max_length=255, null=True , blank=True)
+    contact_name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    phone = models.CharField(max_length=20)
+    address = models.TextField()
+    
+    def __str__(self):
+        if self.company_name is not None:
+            return self.company_name 
+        return f"{self.first_name}  {self.last_name}"
 
 
 # model Marque
@@ -54,7 +68,7 @@ class Product(models.Model):
     sku = models.CharField(unique=True, max_length=255, null=False)
     barcode = models.CharField(unique=True, null=False, blank=True, max_length=255)
     name = models.CharField(max_length=255, blank=False, null=False)
-    slug = models.CharField(max_length=255, unique=True)
+    slug = models.SlugField(max_length=255, unique=True)
     description = models.TextField(blank=True)
     purchase_price = models.DecimalField(max_digits=10, decimal_places=2)
     selling_price = models.DecimalField(max_digits=10, decimal_places=2)
