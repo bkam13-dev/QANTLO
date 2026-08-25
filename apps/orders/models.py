@@ -42,6 +42,9 @@ class OrderItem(models.Model):
     def __str__(self):
         return f"{self.product.name} : {self.quantity} - {self.unit_price } Fcfa"
 
+    @property
+    def total_amout_item(self): 
+        return self.unit_price * self.quantity
 
 # model facture
 class Invoice(models.Model):
@@ -53,3 +56,4 @@ class Invoice(models.Model):
     
     def __str__(self):
         return f"{self.total_amount} - {self.is_paid} - {self.order.status}"
+
