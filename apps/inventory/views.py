@@ -32,7 +32,8 @@ class StockMovementViewset(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if(self.action) not in ['list', 'retrieve']:
             return StockMovementSerializer
-        return DetailStockMovementSerializer    
+        return DetailStockMovementSerializer
+    
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

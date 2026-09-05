@@ -7,7 +7,7 @@ from apps.orders.models import Order, Invoice
     
 @receiver(post_save, sender=Order)
 def create_invoice(sender, instance, created, **kwargs):
-    if instance.status != Order.StatusChoice.COMPLETED:
+    if instance.status != instance.Status.COMPLETED:
         return
     with transaction.atomic():
         invoice, invoice_created = Invoice.objects.get_or_create(order=instance)

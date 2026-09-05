@@ -16,9 +16,9 @@ class WareHouseSerializer(serializers.ModelSerializer):
         
         
         
+        
 # Serializer du model Article en stock        
 class StockItemSerializer(serializers.ModelSerializer):
-
     warehouse = serializers.PrimaryKeyRelatedField(queryset=WareHouse.objects.all())
     product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.select_related('category').select_related('brand').select_related('supplier').all())
     class Meta:
@@ -40,7 +40,6 @@ class DetailStockItemSerializer(serializers.ModelSerializer):
         
 # Serializer du model Mouvement de stock      
 class StockMovementSerializer(serializers.ModelSerializer):
-
     item = serializers.PrimaryKeyRelatedField(queryset=StockItem.objects.select_related('warehouse').select_related('product').all())
     user = serializers.StringRelatedField(read_only=True)
     

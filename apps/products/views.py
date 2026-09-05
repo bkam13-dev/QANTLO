@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from apps.products.models import Product, Category, Supplier, Brand
-
 from apps.products.serializers import ProductSerializer, DetailProductSerializer, TreeCategorySerializer, FlatCategorySerializer, DetailCategorySerializer, SupplierSerializer, BrandSerializer
 from rest_framework import viewsets
 
@@ -11,7 +10,7 @@ class CategoryViewset(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     
     def get_serializer_class(self):
-        if self.request.query_params.get('tree') == True:
+        if self.request.query_params.get('tree') == "true":
             return TreeCategorySerializer
         if self.action == 'retrieve':
             return DetailCategorySerializer

@@ -5,21 +5,11 @@ from apps.products.models import Product, Brand, Category, Supplier, Customer
 
 
 # Serializer du model Catégorie
-
 class FlatCategorySerializer(serializers.ModelSerializer):
     parent = serializers.StringRelatedField()
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug', 'description', 'icon_name', 'is_active', 'display_order']
-        read_only_fields = ['id', 'slug']
-        
-
-class CategorySerializer(serializers.ModelSerializer):
-    children = FlatCategorySerializer(many=True, read_only=True)
-    parent_name = serializers.CharField(source='parent.name', read_only=True)
-    class Meta:
-        model = Category
-        fields = ['id', 'name', 'slug', 'description', 'icon_name', 'is_active', 'display_order', 'parent', 'parent_name', 'children']
+        fields = ['id', 'name', 'slug', 'parent']
         read_only_fields = ['id', 'slug']
         
     def validate_parent(self, value):
@@ -35,7 +25,7 @@ class TreeCategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'slug', 'parent', 'children']
         read_only_fields = ['id', 'slug']
 
-    def get_chidren(self, obj):
+    def get_children(self, obj):
         if obj.children.exists():
             return TreeCategorySerializer(obj.children.all(), many=True).data
         return []
@@ -47,18 +37,6 @@ class DetailCategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'slug', 'parent', 'children']
         read_only_fields = ['id', 'slug']
         
-class CategoryCreateUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ['id', 'name', 'slug', 'description', 'icon_name', 'is_active', 'display_order', 'parent']
-        read_only_fields = ['id', 'slug']
-
-    def validate_parent(self, value):
-        if self.instance and value == self.instance:
-            raise serializers.ValidationError("Une catégorie ne peut pas être son propre parent.")        
-        return value
-    
-    
 
 # Serializer du model Marque
 class BrandSerializer(serializers.ModelSerializer):

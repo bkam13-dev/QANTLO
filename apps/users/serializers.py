@@ -26,7 +26,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 # Serializer du model Profil Utilisateur    
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
-    phone = serializers.SerializerMethodField()
+    phone = serializers.CharField(required=False)
     class Meta:
         model = UserProfile
         fields = ['user', 'phone']
@@ -35,7 +35,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def validate_phone(self, value):
         if len(value.strip()) < 10 or len(value.strip()) > 20:
             raise serializers.ValidationError("Veuillez entrer un numéro de téléphone valide")
-        return
+        return value
 
 
 class DetailUserProfileSerializer(serializers.ModelSerializer):

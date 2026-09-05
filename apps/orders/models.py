@@ -43,7 +43,7 @@ class OrderItem(models.Model):
         return f"{self.product.name} : {self.quantity} - {self.unit_price } Fcfa"
 
     @property
-    def total_amout_item(self): 
+    def total_amount_item(self): 
         return self.unit_price * self.quantity
 
 # model facture

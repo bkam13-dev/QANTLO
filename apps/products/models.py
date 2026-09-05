@@ -3,6 +3,8 @@ import re
 from django.db import models
 import uuid
 from django.utils.text import slugify
+from django.core.validators import MinValueValidator
+
 
 # Create your models here.
 
@@ -13,11 +15,8 @@ class Category(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     parent = models.ForeignKey('self',on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
-    class Meta:
-        verbose_name_plural = "Categories"
-
     def __str__(self):
-        return f"{self.parent} > {self.name}"
+        return self.name
     
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -76,10 +75,9 @@ class Product(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     slug = models.SlugField(max_length=255, unique=True, null=False, blank=True)
     description = models.TextField(blank=True)
-    purchase_price = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
-    selling_price = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
+    purchase_price = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
+    selling_price = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False, validators=[MinValueValidator(0)])
     min_stock_level = models.IntegerField(default=5)
-    image = models.ImageField(upload_to='products/', blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -92,7 +90,7 @@ class Product(models.Model):
         category_code = re.sub(r'[^A-Z]', '', self.category.name.upper())[:3] if self.category else 'GEN'
         category_code = category_code or 'GEN'
 
-        brand_code = re.sub(r'[^A-Z]', '', self.brand.upper())[:3] if self.brand else 'GEN'
+        brand_code = re.sub(r'[^A-Z]', '', self.brand.name.upper())[:3] if self.brand else 'GEN'
         brand_code = brand_code or 'GEN'
 
         if not self.sku_number:
