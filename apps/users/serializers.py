@@ -2,45 +2,52 @@ from rest_framework import serializers
 from apps.users.models import CustomUser, UserProfile
 
 
-
 # Serializer du model Utilisateur Personnalisé
 class CustomUserSerializer(serializers.ModelSerializer):
-    password1 = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
-    password2 = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
     class Meta:
         model = CustomUser
-        fields = ['id','username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'role']
-        read_only_fields = ['id']
+        fields = ['id','username', 'first_name', 'last_name', 'email', 'role', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'username', 'email', 'role', 'created_at', 'updated_at']
         
-    def validate(self, attrs):
-        if attrs['password1'] != attrs['password2']:
-            raise serializers.ValidationError({"password": "Les passwords ne correspondent pas."})
-        return attrs
-        
-    def create(self, validated_data):
-        validated_data.pop('password2')
-        password = validated_data.pop('password1')
-        user = CustomUser.objects.create_user(password=password, **validated_data)
-        return user
+    
+    def update(self, instance, validated_data):
+        profile_data = validated_data.pop('profile', None)
+        for attrs, value in validated_data.items:
+            setattr(instance, attrs, value)
+        instance.save()
+        if profile_data is not None:
+            profile, _ = UserProfile.objects.get_or_create(user=instance)
+            for attrs, value in profile_data.items:
+                setattr(profile, attrs, value)
+            profile.save()
+        return instance
 
 # Serializer du model Profil Utilisateur    
 class UserProfileSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
-    phone = serializers.CharField(required=False)
+    # user = serializers.StringRelatedField(read_only=True)
+    phone_number = serializers.CharField(required=False, allow_blank=True, allow_null=True)
     class Meta:
         model = UserProfile
-        fields = ['user', 'phone']
-        read_only_fields = ['user']
+        fields = ['phone_number', 'avatar']
+        # read_only_fields = ['user']
         
     def validate_phone(self, value):
-        if len(value.strip()) < 10 or len(value.strip()) > 20:
+        if value is None:
+            return value
+        
+        if not value:
+            return value
+        
+        value = value.strip()
+        
+        if value and len(value) < 10 or len(value()) > 20:
             raise serializers.ValidationError("Veuillez entrer un numéro de téléphone valide")
         return value
 
 
 class DetailUserProfileSerializer(serializers.ModelSerializer):
-    user = CustomUserSerializer()
+    user = CustomUserSerializer(read_only=True)
     class Meta:
         model = UserProfile
-        fields = ['user', 'phone']
-        read_only_fields = ['user']
+        fields = ['user', 'phone_number', 'avatar']
+        read_only_fields = ['user', 'phone_number', 'avatar']
