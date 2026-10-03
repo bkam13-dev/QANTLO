@@ -7,6 +7,9 @@ DEBUG = os.getenv('DEBUG') == 'True'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+REST_AUTH = {
+    'JWT_AUTH_SECURE': not DEBUG,  # Set to True in production (HTTPS)
+}
 
 DATABASES = {
     'default': {
